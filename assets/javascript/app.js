@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     var currentQuestion = 0;
-
+    var correctResponse = null;
     var triviaObjectArray = [
         {
             question: "How many National Championships has UNC won?",
@@ -20,12 +20,28 @@ $(document).ready(function () {
             correctAnswerPosition: 1
         }
     ]
+    function clearOldText() {
+        $("#question-area").empty();
+        $("#answers-area").empty();
+    }
+
+    function announceCorrect() {
+        alert("That's the correct answer!")
+        setTimeout(generateTriviaQuestion, 350)
+        setTimeout(generateTriviaAnswers, 450)
+    }
+
+    function announceIncorrect() {
+        alert("That's the wrong answer!");
+        setTimeout(generateTriviaQuestion, 350)
+        setTimeout(generateTriviaAnswers, 450)
+    }
 
     function generateTriviaQuestion() {
         var newQuestionSpan = $("<span>");
+        var newQuestion = triviaObjectArray[currentQuestion].question
         // Pull question from triviaObjectArray sequentially
-        newQuestionSpan.text(triviaObjectArray[currentQuestion].question);
-        console.log(triviaObjectArray[currentQuestion].question);
+        newQuestionSpan.text(newQuestion);
         $("#question").append(newQuestionSpan);
     }
 
@@ -41,13 +57,21 @@ $(document).ready(function () {
         }
     }
 
-    function evaluateAnswer() {
+    function evaluateAnswer(event) {
         var answers = triviaObjectArray[currentQuestion].answerOptions;
         var correctAnswer = answers[triviaObjectArray[currentQuestion].correctAnswerPosition];
         console.log(correctAnswer)
-        console.log(this)
-        var selectedOption = $(this).attr("value");
-        console.log(selectedOption);
+        var selectedOption = event.target.value;
+        if (correctAnswer === selectedOption) {
+            correctResponse = true;
+            setTimeout(clearOldText, 0)
+            setTimeout(announceCorrect, 100)
+        } else {
+            correctResponse = false;
+            setTimeout(clearOldText, 0)
+            setTimeout(announceIncorrect, 100)
+            
+        }
         currentQuestion++;
 
     }
@@ -60,8 +84,8 @@ $(document).ready(function () {
     })
 
     // When an answer option is clicked, check to see if it's correct, then show correct gif
-    $(document).on("click", ".answer-options", function () {
-        evaluateAnswer();
+    $(document).on("click", ".answer-options", function(event) {
+        evaluateAnswer(event);
     })
 
 });
