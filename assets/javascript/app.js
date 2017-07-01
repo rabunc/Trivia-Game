@@ -21,7 +21,7 @@ $(document).ready(function () {
         }
     ]
     function clearOldText() {
-        $("#question-area").empty();
+        $("#question").empty();
         $("#answers-area").empty();
     }
 
