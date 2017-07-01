@@ -2,42 +2,98 @@ $(document).ready(function () {
 
     var currentQuestion = 0;
     var correctResponse = null;
+    var timeLeft = 30;
+    var intervalID;
+    var questionsRight = 0;
+    var questionsWrong = 0;
     var triviaObjectArray = [
+    
         {
             question: "How many National Championships has UNC won?",
             answerOptions: ["4", "9", "6", "3"],
             // "correct answer position" counting from 0, i.e. [2] is the 3rd option
-            correctAnswerPosition: 2
+            correctAnswerPosition: 2,
+            gif: "https://en.wikipedia.org/wiki/File:Michael_Jordan_in_2014.jpg"
         },
         {
             question: "How many NBA Championships did Michael Jordan win?",
             answerOptions: ["6", "2", "5", "8"],
-            correctAnswerPosition: 0
+            correctAnswerPosition: 0,
+            gif: "https://en.wikipedia.org/wiki/File:Michael_Jordan_in_2014.jpg"
         },
         {
             question: "What is the name of the main character of Burn Notice?",
             answerOptions: ["Michael Scott", "Michael Westen", "Jason Bourne", "Jason Stallman"],
-            correctAnswerPosition: 1
+            correctAnswerPosition: 1,
+            gif: "http://gph.is/1aYS5rB"
         }
     ]
+
+    function showConfirmation() {
+        var answers = triviaObjectArray[currentQuestion].answerOptions;
+        var correctAnswer = answers[triviaObjectArray[currentQuestion].correctAnswerPosition];
+        var confirmation = $("<div>");
+        $(confirmation).addClass("#confirmation");
+        $(confirmation).text("The correct answer is " + correctAnswer + "!");
+        console.log(confirmation);
+        $("#confirmation-area").append(confirmation);
+        // Add gif to confirmation
+        var confirmationGifURL = triviaObjectArray[currentQuestion].gif;
+        var confirmationGif = $("<img>");
+        $(confirmationGif).attr("src", confirmationGifURL);
+        $(confirmationGif).attr("width", "300px");
+        $("#gif-area").append(confirmationGif);
+    }
+
+    function clearConfirmation() {
+        $("#confirmation-area").empty()
+        $("#gif-area").empty()
+    }
+
     function clearOldText() {
         $("#question").empty();
         $("#answers-area").empty();
+        $("#countdown-timer").empty()
     }
 
     function announceCorrect() {
-        alert("That's the correct answer!")
-        setTimeout(generateTriviaQuestion, 350)
-        setTimeout(generateTriviaAnswers, 450)
+        showConfirmation();
+        questionsRight++;
+        currentQuestion++;
+        setTimeout(generateTriviaQuestion, 5000);
+        setTimeout(generateTriviaAnswers, 5000);
     }
 
     function announceIncorrect() {
-        alert("That's the wrong answer!");
-        setTimeout(generateTriviaQuestion, 350)
-        setTimeout(generateTriviaAnswers, 450)
+        showConfirmation();
+        questionsWrong++;
+        currentQuestion++;
+        setTimeout(generateTriviaQuestion, 5000);
+        setTimeout(generateTriviaAnswers, 5000);
+    }
+
+    function startTimer() {
+        timeLeft = 30;
+        intervalID = setInterval(decrement, 1000)
+    }
+
+    function stopTimer() {
+        clearInterval(intervalID);
+    }
+
+    function decrement() {
+        timeLeft--;
+        $("#countdown-timer").html("<h2>" + timeLeft + "</h2>")
+        if (timeLeft === 0) {
+            stopTimer()
+            clearOldText()
+            announceIncorrect()
+        }
     }
 
     function generateTriviaQuestion() {
+        clearConfirmation();
+        startTimer()
         var newQuestionSpan = $("<span>");
         var newQuestion = triviaObjectArray[currentQuestion].question
         // Pull question from triviaObjectArray sequentially
@@ -58,33 +114,32 @@ $(document).ready(function () {
     }
 
     function evaluateAnswer(event) {
+        stopTimer()
         var answers = triviaObjectArray[currentQuestion].answerOptions;
         var correctAnswer = answers[triviaObjectArray[currentQuestion].correctAnswerPosition];
         console.log(correctAnswer)
         var selectedOption = event.target.value;
         if (correctAnswer === selectedOption) {
             correctResponse = true;
-            setTimeout(clearOldText, 0)
-            setTimeout(announceCorrect, 100)
+            clearOldText()
+            announceCorrect()
         } else {
             correctResponse = false;
-            setTimeout(clearOldText, 0)
-            setTimeout(announceIncorrect, 100)
-            
+            clearOldText()
+            announceIncorrect()
         }
-        currentQuestion++;
-
+        
     }
 
 
     $("#start-button").on("click", function () {
-        $("#start-button").empty();
+        $("#start-button-area").empty();
         generateTriviaQuestion();
         generateTriviaAnswers();
     })
 
     // When an answer option is clicked, check to see if it's correct, then show correct gif
-    $(document).on("click", ".answer-options", function(event) {
+    $(document).on("click", ".answer-options", function (event) {
         evaluateAnswer(event);
     })
 
