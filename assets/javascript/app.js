@@ -115,8 +115,8 @@ $(document).ready(function () {
         questionsRight++;
         currentQuestion++;
         checkEndGame();
-        setTimeout(generateTriviaQuestion, 5000);
-        setTimeout(generateTriviaAnswers, 5000);
+        setTimeout(generateTriviaQuestion, 3000);
+        setTimeout(generateTriviaAnswers, 3000);
     }
 
     function announceIncorrect() {
@@ -124,8 +124,8 @@ $(document).ready(function () {
         questionsWrong++;
         currentQuestion++;
         checkEndGame();
-        setTimeout(generateTriviaQuestion, 5000);
-        setTimeout(generateTriviaAnswers, 5000);
+        setTimeout(generateTriviaQuestion, 3000);
+        setTimeout(generateTriviaAnswers, 3000);
     }
 
     function startTimer() {
