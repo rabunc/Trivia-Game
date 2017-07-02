@@ -13,19 +13,19 @@ $(document).ready(function () {
             answerOptions: ["4", "9", "6", "3"],
             // "correct answer position" counting from 0, i.e. [2] is the 3rd option
             correctAnswerPosition: 2,
-            gif: "https://en.wikipedia.org/wiki/File:Michael_Jordan_in_2014.jpg"
+            gif: "assets/images/UNC.gif"
         },
         {
             question: "How many NBA Championships did Michael Jordan win?",
             answerOptions: ["6", "2", "5", "8"],
             correctAnswerPosition: 0,
-            gif: "https://en.wikipedia.org/wiki/File:Michael_Jordan_in_2014.jpg"
+            gif: "assets/images/michael_jordan.gif"
         },
         {
             question: "What is the name of the main character of Burn Notice?",
             answerOptions: ["Michael Scott", "Michael Westen", "Jason Bourne", "Jason Stallman"],
             correctAnswerPosition: 1,
-            gif: "http://gph.is/1aYS5rB"
+            gif: "assets/images/burn_notice.gif"
         }
     ]
 
