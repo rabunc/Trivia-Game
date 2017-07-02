@@ -7,7 +7,6 @@ $(document).ready(function () {
     var questionsRight = 0;
     var questionsWrong = 0;
     var triviaObjectArray = [
-    
         {
             question: "How many National Championships has UNC won?",
             answerOptions: ["4", "9", "6", "3"],
@@ -26,8 +25,63 @@ $(document).ready(function () {
             answerOptions: ["Michael Scott", "Michael Westen", "Jason Bourne", "Jason Stallman"],
             correctAnswerPosition: 1,
             gif: "assets/images/burn_notice.gif"
+        },
+        {
+            question: "What state was Ryan Bregier born in?",
+            answerOptions: ["North Carolina", "Florida", "Michigan", "South Carolina"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/florida.jpg"
+        },
+        {
+            question: "What high school did Ryan go to?",
+            answerOptions: ["South Charlotte", "Myers Park", "South Meck", "Providence"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/Myers-Park-High-School.png"
+        },
+        {
+            question: "What was Ryan's favorite band in middle school?",
+            answerOptions: ["The Beatles", "Lynard Skynard", "Everclear", "Blink 182"],
+            correctAnswerPosition: 3,
+            gif: "assets/images/blink182.gif"
+        },
+        {
+            question: "Who was Ryan's favorite rapper in middle school?",
+            answerOptions: ["Dr. Dre", "50 Cent", "Nas", "Eminem"],
+            correctAnswerPosition: 2,
+            gif: "assets/images/nas.gif"
+        },
+        {
+            question: "How many grades ahead was Ryan in math in High School?",
+            answerOptions: ["1", "2", "3", "4"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/math.gif"
+        },
+        {
+            question: "What was the name of Ryan's private school?",
+            answerOptions: ["Grace Academy", "Providence Day", "United Faith", "Christian Day"],
+            correctAnswerPosition: 2,
+            gif: "assets/images/ufca.jpg"
         }
+
     ]
+
+    function showGameCredits() {
+        $("#question").empty();
+        $("#answers-area").empty();
+        $("#countdown-timer").empty();
+        $("#confirmation-area").empty();
+        $("#gif-area").empty();
+        $("#correct").append("You got " + questionsRight + " questions correct!")
+        $("#incorrect").append("You got " + questionsWrong + " questions wrong!")
+        stopTimer();
+
+    }
+
+    function checkEndGame() {
+        if (currentQuestion === triviaObjectArray.length) {
+            showGameCredits();
+        }
+    }
 
     function showConfirmation() {
         var answers = triviaObjectArray[currentQuestion].answerOptions;
@@ -46,20 +100,21 @@ $(document).ready(function () {
     }
 
     function clearConfirmation() {
-        $("#confirmation-area").empty()
-        $("#gif-area").empty()
+        $("#confirmation-area").empty();
+        $("#gif-area").empty();
     }
 
     function clearOldText() {
         $("#question").empty();
         $("#answers-area").empty();
-        $("#countdown-timer").empty()
+        $("#countdown-timer").empty();
     }
 
     function announceCorrect() {
         showConfirmation();
         questionsRight++;
         currentQuestion++;
+        checkEndGame();
         setTimeout(generateTriviaQuestion, 5000);
         setTimeout(generateTriviaAnswers, 5000);
     }
@@ -68,12 +123,13 @@ $(document).ready(function () {
         showConfirmation();
         questionsWrong++;
         currentQuestion++;
+        checkEndGame();
         setTimeout(generateTriviaQuestion, 5000);
         setTimeout(generateTriviaAnswers, 5000);
     }
 
     function startTimer() {
-        timeLeft = 30;
+        timeLeft = 15;
         intervalID = setInterval(decrement, 1000)
     }
 
@@ -83,19 +139,19 @@ $(document).ready(function () {
 
     function decrement() {
         timeLeft--;
-        $("#countdown-timer").html("<h2>" + timeLeft + "</h2>")
+        $("#countdown-timer").html("<h2>" + timeLeft + "</h2>");
         if (timeLeft === 0) {
-            stopTimer()
-            clearOldText()
-            announceIncorrect()
+            stopTimer();
+            clearOldText();
+            announceIncorrect();
         }
     }
 
     function generateTriviaQuestion() {
         clearConfirmation();
-        startTimer()
+        startTimer();
         var newQuestionSpan = $("<span>");
-        var newQuestion = triviaObjectArray[currentQuestion].question
+        var newQuestion = triviaObjectArray[currentQuestion].question;
         // Pull question from triviaObjectArray sequentially
         newQuestionSpan.text(newQuestion);
         $("#question").append(newQuestionSpan);
