@@ -61,6 +61,48 @@ $(document).ready(function () {
             answerOptions: ["Grace Academy", "Providence Day", "United Faith", "Christian Day"],
             correctAnswerPosition: 2,
             gif: "assets/images/ufca.jpg"
+        },
+        {
+            question: "What sports team was Ryan on in middle school?",
+            answerOptions: ["Basketball", "Soccer", "Baseball", "Track"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/soccer.jpg"
+        },
+        {
+            question: "What was the name of Ryan's middle school?",
+            answerOptions: ["Alexander Graham", "Carmel", "Sedgefield", "South Charlotte"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/carmel.jpg"
+        },
+        {
+            question: "What was the second company Ryan worked for after Chick-Fil-A?",
+            answerOptions: ["CMC-University", "Latin Solutions", "RadioShack", "Harris Teeter"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/latin.jpg"
+        },
+        {
+            question: "What martial art is Ryan a black belt in?",
+            answerOptions: ["Karate", "Kickboxing", "Tae Kwon Do", "Aikido"],
+            correctAnswerPosition: 2,
+            gif: "assets/images/taekwondo.gif"
+        },
+        {
+            question: "What academic fraternity was Ryan a member of in UNC?",
+            answerOptions: ["Entreprenurship", "Pre-Dental", "Pre-Law", "Business"],
+            correctAnswerPosition: 2,
+            gif: "assets/images/padlogo.png"
+        },
+        {
+            question: "What is Ryan's PR in bench press?",
+            answerOptions: ["215", "245", "275", "315"],
+            correctAnswerPosition: 2,
+            gif: "assets/images/bench.gif"
+        },
+        {
+            question: "Which color is 'study/knowledge aquisition' on Ryan's schedule?",
+            answerOptions: ["green", "teal", "navy blue", "purple"],
+            correctAnswerPosition: 1,
+            gif: "assets/images/teal.jpg"
         }
 
     ]
