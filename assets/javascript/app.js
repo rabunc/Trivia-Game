@@ -1,11 +1,17 @@
 $(document).ready(function () {
 
+    // Last answer doesn't display
+    // Counter keeps running after correct/incorrect is displayed
+    // Play again button
+    // Timer appearing interferes with 
+
     var currentQuestion = 0;
     var correctResponse = null;
     var timeLeft = 30;
     var intervalID;
     var questionsRight = 0;
     var questionsWrong = 0;
+    var gameOver = false;
     var triviaObjectArray = [
         {
             question: "How many National Championships has UNC won?",
@@ -26,85 +32,84 @@ $(document).ready(function () {
             correctAnswerPosition: 1,
             gif: "assets/images/burn_notice.gif"
         },
-        {
-            question: "What state was Ryan Bregier born in?",
-            answerOptions: ["North Carolina", "Florida", "Michigan", "South Carolina"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/florida.jpg"
-        },
-        {
-            question: "What high school did Ryan go to?",
-            answerOptions: ["South Charlotte", "Myers Park", "South Meck", "Providence"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/Myers-Park-High-School.png"
-        },
-        {
-            question: "What was Ryan's favorite band in middle school?",
-            answerOptions: ["The Beatles", "Lynard Skynard", "Everclear", "Blink 182"],
-            correctAnswerPosition: 3,
-            gif: "assets/images/blink182.gif"
-        },
-        {
-            question: "Who was Ryan's favorite rapper in middle school?",
-            answerOptions: ["Dr. Dre", "50 Cent", "Nas", "Eminem"],
-            correctAnswerPosition: 2,
-            gif: "assets/images/nas.gif"
-        },
-        {
-            question: "How many grades ahead was Ryan in math in High School?",
-            answerOptions: ["1", "2", "3", "4"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/math.gif"
-        },
-        {
-            question: "What was the name of Ryan's private school?",
-            answerOptions: ["Grace Academy", "Providence Day", "United Faith", "Christian Day"],
-            correctAnswerPosition: 2,
-            gif: "assets/images/ufca.jpg"
-        },
-        {
-            question: "What sports team was Ryan on in middle school?",
-            answerOptions: ["Basketball", "Soccer", "Baseball", "Track"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/soccer.jpg"
-        },
-        {
-            question: "What was the name of Ryan's middle school?",
-            answerOptions: ["Alexander Graham", "Carmel", "Sedgefield", "South Charlotte"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/carmel.jpg"
-        },
-        {
-            question: "What was the second company Ryan worked for after Chick-Fil-A?",
-            answerOptions: ["CMC-University", "Latin Solutions", "RadioShack", "Harris Teeter"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/latin.jpg"
-        },
-        {
-            question: "What martial art is Ryan a black belt in?",
-            answerOptions: ["Karate", "Kickboxing", "Tae Kwon Do", "Aikido"],
-            correctAnswerPosition: 2,
-            gif: "assets/images/taekwondo.gif"
-        },
-        {
-            question: "What academic fraternity was Ryan a member of in UNC?",
-            answerOptions: ["Entreprenurship", "Pre-Dental", "Pre-Law", "Business"],
-            correctAnswerPosition: 2,
-            gif: "assets/images/padlogo.png"
-        },
-        {
-            question: "What is Ryan's PR in bench press?",
-            answerOptions: ["215", "245", "275", "315"],
-            correctAnswerPosition: 2,
-            gif: "assets/images/bench.gif"
-        },
-        {
-            question: "Which color is 'study/knowledge aquisition' on Ryan's schedule?",
-            answerOptions: ["green", "teal", "navy blue", "purple"],
-            correctAnswerPosition: 1,
-            gif: "assets/images/teal.jpg"
-        }
-
+        // {
+        //     question: "What state was Ryan Bregier born in?",
+        //     answerOptions: ["North Carolina", "Florida", "Michigan", "South Carolina"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/florida.jpg"
+        // },
+        // {
+        //     question: "What high school did Ryan go to?",
+        //     answerOptions: ["South Charlotte", "Myers Park", "South Meck", "Providence"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/Myers-Park-High-School.png"
+        // },
+        // {
+        //     question: "What was Ryan's favorite band in middle school?",
+        //     answerOptions: ["The Beatles", "Lynard Skynard", "Everclear", "Blink 182"],
+        //     correctAnswerPosition: 3,
+        //     gif: "assets/images/blink182.gif"
+        // },
+        // {
+        //     question: "Who was Ryan's favorite rapper in middle school?",
+        //     answerOptions: ["Dr. Dre", "50 Cent", "Nas", "Eminem"],
+        //     correctAnswerPosition: 2,
+        //     gif: "assets/images/nas.gif"
+        // },
+        // {
+        //     question: "How many grades ahead was Ryan in math in High School?",
+        //     answerOptions: ["1", "2", "3", "4"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/math.gif"
+        // },
+        // {
+        //     question: "What was the name of Ryan's private school?",
+        //     answerOptions: ["Grace Academy", "Providence Day", "United Faith", "Christian Day"],
+        //     correctAnswerPosition: 2,
+        //     gif: "assets/images/ufca.jpg"
+        // },
+        // {
+        //     question: "What sports team was Ryan on in middle school?",
+        //     answerOptions: ["Basketball", "Soccer", "Baseball", "Track"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/soccer.jpg"
+        // },
+        // {
+        //     question: "What was the name of Ryan's middle school?",
+        //     answerOptions: ["Alexander Graham", "Carmel", "Sedgefield", "South Charlotte"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/carmel.jpg"
+        // },
+        // {
+        //     question: "What was the second company Ryan worked for after Chick-Fil-A?",
+        //     answerOptions: ["CMC-University", "Latin Solutions", "RadioShack", "Harris Teeter"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/latin.jpg"
+        // },
+        // {
+        //     question: "What martial art is Ryan a black belt in?",
+        //     answerOptions: ["Karate", "Kickboxing", "Tae Kwon Do", "Aikido"],
+        //     correctAnswerPosition: 2,
+        //     gif: "assets/images/taekwondo.gif"
+        // },
+        // {
+        //     question: "What academic fraternity was Ryan a member of in UNC?",
+        //     answerOptions: ["Entreprenurship", "Pre-Dental", "Pre-Law", "Business"],
+        //     correctAnswerPosition: 2,
+        //     gif: "assets/images/padlogo.png"
+        // },
+        // {
+        //     question: "What is Ryan's PR in bench press?",
+        //     answerOptions: ["215", "245", "275", "315"],
+        //     correctAnswerPosition: 2,
+        //     gif: "assets/images/bench.gif"
+        // },
+        // {
+        //     question: "Which color is 'study/knowledge aquisition' on Ryan's schedule?",
+        //     answerOptions: ["green", "teal", "navy blue", "purple"],
+        //     correctAnswerPosition: 1,
+        //     gif: "assets/images/teal.jpg"
+        // }
     ]
 
     function showGameCredits() {
@@ -116,12 +121,14 @@ $(document).ready(function () {
         $("#correct").append("You got " + questionsRight + " questions correct!")
         $("#incorrect").append("You got " + questionsWrong + " questions wrong!")
         stopTimer();
-
+        return;
     }
 
     function checkEndGame() {
         if (currentQuestion === triviaObjectArray.length) {
-            showGameCredits();
+            gameOver = true;
+            setTimeout(showGameCredits, 3000)
+            stopTimer()
         }
     }
 
@@ -157,17 +164,20 @@ $(document).ready(function () {
         questionsRight++;
         currentQuestion++;
         checkEndGame();
-        setTimeout(generateTriviaQuestion, 3000);
-        setTimeout(generateTriviaAnswers, 3000);
+        if (gameOver != true) {
+            setTimeout(generateTriviaQuestion, 3000);
+            setTimeout(generateTriviaAnswers, 3000);
+        }
     }
 
     function announceIncorrect() {
         showConfirmation();
         questionsWrong++;
         currentQuestion++;
-        checkEndGame();
-        setTimeout(generateTriviaQuestion, 3000);
-        setTimeout(generateTriviaAnswers, 3000);
+        if (gameOver != true) {
+            setTimeout(generateTriviaQuestion, 3000);
+            setTimeout(generateTriviaAnswers, 3000);
+        }
     }
 
     function startTimer() {
@@ -226,9 +236,7 @@ $(document).ready(function () {
             clearOldText()
             announceIncorrect()
         }
-        
     }
-
 
     $("#start-button").on("click", function () {
         $("#start-button-area").empty();
