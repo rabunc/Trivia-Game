@@ -1,9 +1,6 @@
 $(document).ready(function () {
 
-    // Last answer doesn't display
-    // Counter keeps running after correct/incorrect is displayed
     // Play again button
-    // Timer appearing interferes with 
 
     var currentQuestion = 0;
     var correctResponse = null;
@@ -191,7 +188,7 @@ $(document).ready(function () {
 
     function decrement() {
         timeLeft--;
-        $("#countdown-timer").html("<h2>" + timeLeft + "</h2>");
+        $("#countdown-timer").html("Time remaining: " + timeLeft + " seconds");
         if (timeLeft === 0) {
             stopTimer();
             clearOldText();
@@ -205,7 +202,7 @@ $(document).ready(function () {
         var newQuestionSpan = $("<span>");
         var newQuestion = triviaObjectArray[currentQuestion].question;
         // Pull question from triviaObjectArray sequentially
-        newQuestionSpan.text(newQuestion);
+        newQuestionSpan.html("<h2>" + newQuestion + "<h2>");
         $("#question").append(newQuestionSpan);
     }
 
