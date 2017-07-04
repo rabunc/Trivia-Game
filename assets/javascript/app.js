@@ -124,6 +124,7 @@ $(document).ready(function () {
         showConfirmation();
         questionsWrong++;
         currentQuestion++;
+        checkEndGame();
         if (gameOver != true) {
             setTimeout(generateTriviaQuestion, 3000);
             setTimeout(generateTriviaAnswers, 3000);
@@ -151,6 +152,7 @@ $(document).ready(function () {
         showConfirmation();
         questionsWrong++;
         currentQuestion++;
+        checkEndGame();
         if (gameOver != true) {
             setTimeout(generateTriviaQuestion, 3000);
             setTimeout(generateTriviaAnswers, 3000);
