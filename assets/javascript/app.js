@@ -219,6 +219,8 @@ $(document).ready(function () {
         $("#start-button-area").empty();
         currentQuestion = 0;
         gameOver = false;
+        questionsRight = 0;
+        questionsWrong = 0;
         clearOldText();
         clearConfirmation();
         $("#correct").empty()
