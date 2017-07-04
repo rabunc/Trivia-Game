@@ -172,7 +172,7 @@ $(document).ready(function () {
         if (timeLeft === 0) {
             stopTimer();
             clearOldText();
-            announceIncorrect();
+            announceOutOfTime();
         }
     }
 
