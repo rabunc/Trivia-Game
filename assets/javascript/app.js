@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    // Play again button
-
     var currentQuestion = 0;
     var correctResponse = null;
     var timeLeft = 30;
